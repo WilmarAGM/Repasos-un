@@ -1,0 +1,15 @@
+\documentclass[tikz, border=2mm]{standalone}
+\usepackage{amsmath, amssymb, amsfonts}
+\begin{document}
+\begin{tikzpicture}[scale=0.8]
+\draw[->] (-6,0) -- (6,0) node[right] {$x$};
+\draw[->] (0,-4) -- (0,5) node[above] {$y$};
+\draw[dashed] (3,-4) -- (3,5) node[above] {$x=3$};
+\draw[dashed] (-5,-4) -- (-5,5) node[above] {$x=-5$};
+\filldraw (0,3) circle (4pt);
+\draw[fill=white] (0,-2) circle (4pt);
+\draw[thick, domain=-4.8:-0.1, samples=100] plot (\x, {2+3 + ln(\x+5) - ln(5)});
+\draw[thick, domain=0.1:2.8, samples=100] plot (\x, {2+-2 - ln(3-\x) + ln(3)});
+\draw[thick, domain=3.2:5, samples=100] plot (\x, {2+3 - ln(\x-3) + ln(2)});
+\end{tikzpicture}
+\end{document}

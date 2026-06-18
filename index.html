@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculus Quest</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- MathJax for rendering LaTeX -->
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        macros: {
+          mathbf: ['\\boldsymbol{#1}', 1],
+          everymath: "\\displaystyle"
+        }
+      },
+      startup: {
+        typeset: false
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Google Fonts for modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <header>
+        <div class="logo">CALCULUS QUEST</div>
+        <div class="player-stats">
+            <div class="level-badge" id="level-badge">Lvl 1</div>
+            <div class="xp-container">
+                <div class="xp-bar-bg">
+                    <div class="xp-bar-fill" id="xp-bar"></div>
+                </div>
+                <div class="xp-text" id="xp-text">0 / 100 XP</div>
+            </div>
+            <div class="rank-text" id="rank-text">Novato</div>
+        </div>
+    </header>
+
+    <main id="app-container">
+        <!-- Views will be injected here by app.js -->
+    </main>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

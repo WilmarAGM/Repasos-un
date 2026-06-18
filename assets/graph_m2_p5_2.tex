@@ -1,0 +1,13 @@
+\documentclass[tikz, border=2mm]{standalone}
+\usepackage{amsmath, amssymb, amsfonts}
+\begin{document}
+\begin{tikzpicture}[scale=0.8]
+\draw[->] (-4,0) -- (8,0) node[right] {$x$};
+\draw[->] (0,-4) -- (0,5) node[above] {$y$};
+\draw[dashed] (5,-4) -- (5,5) node[above] {$x=5$};
+\draw[fill=white] (2,4) circle (2pt);
+\filldraw (2,1) circle (2pt);
+\draw[thick, domain=-3:1.9, samples=100] plot (-\x, {4 - 0.5*(2-\x)^2});
+\draw[thick, domain=2:4.9, samples=100] plot (-\x, {1 + ln(5-\x) - ln(3)});
+\end{tikzpicture}
+\end{document}

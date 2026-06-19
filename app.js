@@ -38,23 +38,31 @@ function updateStats() {
 
 function renderSubjects() {
     let html = `
-        <div style="text-align:center; margin-bottom: 3rem; animation: fadeIn 1s ease;">
-            <h1 style="font-size:3.5rem; color:var(--text-highlight); text-shadow: 0 0 20px rgba(102, 252, 241, 0.4); margin-bottom:1rem;">Bienvenido a Quest Academy</h1>
-            <p style="font-size:1.3rem; max-width:800px; margin:auto; color:#fff; line-height:1.6;">Una plataforma interactiva diseñada para elevar tu nivel académico. Selecciona una rama del conocimiento, enfréntate a desafíos reales y domina las matemáticas a través de la práctica y retroalimentación instantánea.</p>
-        </div>
-        <div class="subjects-grid">
+        <div class="home-container">
+            <div class="glass-hero">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Logotipo_de_la_Universidad_Nacional_de_Colombia.svg" alt="UNAL Logo" class="unal-logo">
+                <h1 class="home-title">Misiones de Repaso</h1>
+                <p class="home-subtitle">Universidad Nacional de Colombia - Departamento de Matemáticas</p>
+                <p class="home-desc">Plataforma interactiva diseñada para elevar tu nivel académico. Selecciona una rama del conocimiento, enfréntate a desafíos reales y domina las matemáticas.</p>
+            </div>
+            
+            <div class="home-subjects-grid">
     `;
     SUBJECTS.forEach((subject, index) => {
         html += `
-            <div class="subject-card" onclick="selectSubject(${index})">
-                <div class="subject-icon">${subject.icon}</div>
-                <div class="subject-title">${subject.title}</div>
-                <div class="subject-desc">${subject.description}</div>
-                <div class="subject-meta">${subject.missions.length} Misiones Disponibles</div>
-            </div>
+                <div class="home-subject-card" onclick="selectSubject(${index})">
+                    <div class="subject-icon-glow"></div>
+                    <div class="subject-icon" style="position: relative; z-index: 2;">${subject.icon}</div>
+                    <h2 class="subject-title" style="position: relative; z-index: 2;">${subject.title}</h2>
+                    <p class="subject-desc" style="position: relative; z-index: 2;">${subject.description}</p>
+                    <div class="subject-meta" style="position: relative; z-index: 2;">${subject.missions.length} Misiones Disponibles</div>
+                </div>
         `;
     });
-    html += `</div>`;
+    html += `
+            </div>
+        </div>
+    `;
     appContainer.innerHTML = html;
 }
 

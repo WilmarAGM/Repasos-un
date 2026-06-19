@@ -119,11 +119,12 @@ function renderExercise() {
         html = html.replace(/\\end\{itemize\}/g, '</ul>');
         html = html.replace(/\\item/g, '<li style="margin-bottom: 0.5rem; margin-top: 0.5rem;">');
         
-        // Tablas (Convirtiendo tabular de texto a array matemático para MathJax)
+        // Tablas (Convirtiendo tabular de texto a array matemático para MathJax y quitando $ internos)
         html = html.replace(/\\begin\{center\}/g, '<div style="text-align: center; margin: 1.5rem 0; overflow-x: auto;">');
         html = html.replace(/\\end\{center\}/g, '</div>');
-        html = html.replace(/\\begin\{tabular\}\{([^}]+)\}/g, '$$$$ \\begin{array}{$1}');
-        html = html.replace(/\\end\{tabular\}/g, '\\end{array} $$$$');
+        html = html.replace(/\\begin\{tabular\}\{([^}]+)\}([\s\S]*?)\\end\{tabular\}/g, function(match, format, content) {
+            return '$$$$ \\begin{array}{' + format + '}' + content.replace(/\$/g, '') + '\\end{array} $$$$';
+        });
 
         // Estilos
         html = html.replace(/\\textbf\{([^}]+)\}/g, '<strong>$1</strong>');

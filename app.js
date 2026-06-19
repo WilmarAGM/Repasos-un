@@ -40,7 +40,7 @@ function renderSubjects() {
     let html = `
         <div class="home-container">
             <div class="glass-hero">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Logotipo_de_la_Universidad_Nacional_de_Colombia.svg" alt="UNAL Logo" class="unal-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Escudo_de_la_Universidad_Nacional_de_Colombia_%282016%29.svg" alt="UNAL Logo" class="unal-logo">
                 <h1 class="home-title">Misiones de Repaso</h1>
                 <p class="home-subtitle">Universidad Nacional de Colombia - Departamento de Matemáticas</p>
                 <p class="home-desc">Plataforma interactiva diseñada para elevar tu nivel académico. Selecciona una rama del conocimiento, enfréntate a desafíos reales y domina las matemáticas.</p>

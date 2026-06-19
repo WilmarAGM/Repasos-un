@@ -114,6 +114,62 @@ header {
     max-width: 900px;
 }
 
+/* Subjects View */
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.subject-card {
+    background: linear-gradient(135deg, rgba(31, 40, 51, 0.8), rgba(11, 12, 16, 0.9));
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.subject-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(102, 252, 241, 0.3);
+    border-color: var(--text-highlight);
+}
+
+.subject-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+}
+
+.subject-title {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.subject-desc {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.subject-meta {
+    font-size: 1rem;
+    color: #000;
+    background: var(--text-highlight);
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
 /* Missions View */
 .missions-grid {
     display: grid;

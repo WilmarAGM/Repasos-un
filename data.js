@@ -1,4 +1,4 @@
-const APP_DATA = [
+const CALCULUS_DATA = [
   {
     "mission_id": "taller",
     "title": "Taller de Repaso 2",

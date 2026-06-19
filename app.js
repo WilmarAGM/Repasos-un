@@ -3,6 +3,7 @@ const XP_PER_LEVEL = 100;
 let xp = 0;
 let level = 1;
 
+let currentSubject = null;
 let currentMission = null;
 let currentExerciseIndex = 0;
 
@@ -18,7 +19,7 @@ function init() {
         xp = parseInt(localStorage.getItem('cq_xp'));
     }
     updateStats();
-    renderMissions();
+    renderSubjects();
 }
 
 function updateStats() {
@@ -35,9 +36,42 @@ function updateStats() {
     localStorage.setItem('cq_xp', xp);
 }
 
+function renderSubjects() {
+    let html = `
+        <div style="text-align:center; margin-bottom: 3rem; animation: fadeIn 1s ease;">
+            <h1 style="font-size:3.5rem; color:var(--text-highlight); text-shadow: 0 0 20px rgba(102, 252, 241, 0.4); margin-bottom:1rem;">Bienvenido a Quest Academy</h1>
+            <p style="font-size:1.3rem; max-width:800px; margin:auto; color:#fff; line-height:1.6;">Una plataforma interactiva diseñada para elevar tu nivel académico. Selecciona una rama del conocimiento, enfréntate a desafíos reales y domina las matemáticas a través de la práctica y retroalimentación instantánea.</p>
+        </div>
+        <div class="subjects-grid">
+    `;
+    SUBJECTS.forEach((subject, index) => {
+        html += `
+            <div class="subject-card" onclick="selectSubject(${index})">
+                <div class="subject-icon">${subject.icon}</div>
+                <div class="subject-title">${subject.title}</div>
+                <div class="subject-desc">${subject.description}</div>
+                <div class="subject-meta">${subject.missions.length} Misiones Disponibles</div>
+            </div>
+        `;
+    });
+    html += `</div>`;
+    appContainer.innerHTML = html;
+}
+
+window.selectSubject = function(index) {
+    currentSubject = SUBJECTS[index];
+    renderMissions();
+}
+
 function renderMissions() {
-    let html = `<h2 style="margin-bottom:2rem; font-size:2.5rem; text-align:center; color: #fff;">Selecciona una Misión</h2><div class="missions-grid">`;
-    APP_DATA.forEach((mission, index) => {
+    let html = `
+        <div class="exercise-header">
+            <h2 style="font-size:2.5rem; color: #fff;">${currentSubject.title} - Misiones</h2>
+            <button class="btn" onclick="renderSubjects()">Volver al Inicio</button>
+        </div>
+        <div class="missions-grid">
+    `;
+    currentSubject.missions.forEach((mission, index) => {
         html += `
             <div class="mission-card" onclick="startMission(${index})">
                 <div class="mission-title">${mission.title}</div>
@@ -49,13 +83,13 @@ function renderMissions() {
     appContainer.innerHTML = html;
 }
 
-// Ensure globally we can call these from HTML onclick
 window.startMission = function(index) {
-    currentMission = APP_DATA[index];
+    currentMission = currentSubject.missions[index];
     currentExerciseIndex = 0;
     renderExercise();
 }
 
+window.renderSubjects = renderSubjects;
 window.renderMissions = renderMissions;
 
 function renderExercise() {
@@ -108,7 +142,10 @@ function renderExercise() {
         <div class="glass-card" style="width:100%;">
             <div class="exercise-header">
                 <h2>${currentMission.title} - Ejercicio ${currentExerciseIndex + 1} de ${currentMission.exercises.length}</h2>
-                <button class="btn" onclick="renderMissions()">Abandonar</button>
+                <div style="display:flex; gap: 10px;">
+                    <button class="btn" onclick="renderMissions()">Volver a Misiones</button>
+                    <button class="btn" onclick="renderSubjects()">Inicio</button>
+                </div>
             </div>
             <div class="question-box" id="q-box">
                 ${qText}
@@ -120,26 +157,39 @@ function renderExercise() {
         html += `<div style="margin: 2rem 0;">${ex.graph_options}</div>`;
     }
 
-    // Add dynamic inputs for parameters
-    html += `<div class="inputs-container" style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-top:2rem;">`;
-    for (let key in ex.answers) {
-        if (key === 'graph') continue;
+    if (ex.answers !== null) {
+        // Add dynamic inputs for parameters
+        html += `<div class="inputs-container" style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-top:2rem;">`;
+        for (let key in ex.answers) {
+            if (key === 'graph') continue;
+            html += `
+                <div class="input-group" style="display:flex; align-items:center; gap:0.5rem;">
+                    <label style="font-size:1.5rem; color:var(--text-highlight); font-weight:bold;">${key} =</label>
+                    <input type="text" id="input-${key}" class="custom-input" placeholder="Ej: -3/5" autocomplete="off">
+                    <span id="feedback-${key}" style="font-size:1.5rem;"></span>
+                </div>
+            `;
+        }
+        html += `</div>`;
+
         html += `
-            <div class="input-group" style="display:flex; align-items:center; gap:0.5rem;">
-                <label style="font-size:1.5rem; color:var(--text-highlight); font-weight:bold;">${key} =</label>
-                <input type="text" id="input-${key}" class="custom-input" placeholder="Ej: -3/5" autocomplete="off">
-                <span id="feedback-${key}" style="font-size:1.5rem;"></span>
-            </div>
+                <div style="text-align:center; margin: 3rem 0;" id="reveal-btn-container">
+                    <button class="btn primary" id="eval-btn" onclick="evaluateInputs()">Evaluar Respuestas</button>
+                </div>
+        `;
+    } else {
+        // Procedure question (no answers)
+        html += `
+                <div style="text-align:center; margin: 3rem 0;" id="reveal-btn-container">
+                    <p style="font-size:1.1rem; color:#fff; margin-bottom:1rem;"><em>Resuelve el ejercicio en tu cuaderno y presiona el botón para comparar.</em></p>
+                    <button class="btn primary" id="eval-btn" onclick="revealProcedure()">Enseñar Solución</button>
+                </div>
         `;
     }
-    html += `</div>`;
 
     html += `
-            <div style="text-align:center; margin: 3rem 0;" id="reveal-btn-container">
-                <button class="btn primary" id="eval-btn" onclick="evaluateInputs()">Evaluar Respuestas</button>
-            </div>
             <div class="solution-box" id="s-box" style="display:none;">
-                <h3 style="color:var(--text-highlight); margin-bottom:1.5rem; border-bottom: 1px solid var(--card-border); padding-bottom: 0.5rem;">Solución Exacta:</h3>
+                <h3 style="color:var(--text-highlight); margin-bottom:1.5rem; border-bottom: 1px solid var(--card-border); padding-bottom: 0.5rem;">Solución Detallada:</h3>
                 ${sText}
                 <div style="text-align:center; margin-top: 3rem;">
                     <button class="btn primary" onclick="nextExercise()">Siguiente Ejercicio</button>
@@ -174,6 +224,8 @@ window.selectGraph = function(letter) {
 
 window.evaluateInputs = function() {
     const ex = currentMission.exercises[currentExerciseIndex];
+    if (ex.answers === null) return;
+    
     let allCorrect = true;
     let xpEarned = 0;
     
@@ -211,6 +263,14 @@ window.evaluateInputs = function() {
     xp += xpEarned;
     updateStats();
     
+    document.getElementById('reveal-btn-container').style.display = 'none';
+    document.getElementById('s-box').style.display = 'block';
+}
+
+window.revealProcedure = function() {
+    // Grant standard XP for self-evaluation procedure questions
+    xp += 10;
+    updateStats();
     document.getElementById('reveal-btn-container').style.display = 'none';
     document.getElementById('s-box').style.display = 'block';
 }

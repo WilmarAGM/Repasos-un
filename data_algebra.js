@@ -277,5 +277,12 @@ const SUBJECTS = [
         description: "Sistemas de ecuaciones, transformaciones lineales, espacios vectoriales y diagonalización. La base del mundo multidimensional.",
         icon: "🧮",
         missions: ALGEBRA_DATA
+    },
+    {
+        id: "metodos",
+        title: "Métodos Numéricos",
+        description: "Interpolación, splines cúbicos, cuadratura gaussiana y de Newton-Cotes, y mínimos cuadrados no lineales. Exámenes reales del Segundo Parcial (3006907), resueltos y autoevaluables.",
+        icon: "🔢",
+        missions: METODOS_DATA
     }
 ];

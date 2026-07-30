@@ -590,3 +590,59 @@ header {
 #w-s-box.solution-box {
     display: none;
 }
+
+/* ---------------------------------------------------------------
+   Modo Guiado (tutor paso a paso): usado por las misiones nuevas
+   de Diferencial en "Repasos Parcial 3". Sin XP, solo práctica.
+   --------------------------------------------------------------- */
+.guided-steps {
+    width: 100%;
+}
+
+.guided-step {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+    animation: fadeIn 0.4s ease;
+}
+
+.guided-step.active {
+    border-color: var(--text-highlight);
+    box-shadow: 0 0 15px rgba(102, 252, 241, 0.15);
+}
+
+.guided-step.completed {
+    opacity: 0.92;
+}
+
+.guided-step-label {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-highlight);
+    margin-bottom: 0.8rem;
+}
+
+.guided-hint {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid var(--accent);
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.guided-reveal {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #fff;
+    background: rgba(46, 204, 113, 0.08);
+    border-left: 3px solid var(--success);
+    padding: 0.9rem 1.1rem;
+    border-radius: 6px;
+    animation: fadeIn 0.4s ease;
+}

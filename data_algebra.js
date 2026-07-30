@@ -263,7 +263,7 @@ const ALGEBRA_DATA = [
     }
 ];
 
-const SUBJECTS = [
+const SUBJECTS_P2 = [
     {
         id: "calculus",
         title: "Repaso Cálculo Diferencial",

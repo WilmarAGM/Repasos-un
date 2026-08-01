@@ -691,9 +691,9 @@ const SUBJECTS_P3 = [
     {
         id: "algebra_p3",
         title: "Repaso Álgebra Lineal",
-        description: "Próximamente — estamos preparando el contenido guiado de Álgebra Lineal para el Parcial 3.",
+        description: "Modo guiado: tutor paso a paso basado en el Supletorio 2024-II, el examen 2025-II y un Simulacro de Parcial 3 con solucionario propio. Sin XP — práctica pura.",
         icon: "🧮",
-        missions: []
+        missions: GUIDED_ALGEBRA_P3
     },
     {
         id: "metodos_p3",
